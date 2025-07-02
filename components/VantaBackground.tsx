@@ -12,11 +12,10 @@ export default function VantaBackground() {
   const vantaRef = useRef<HTMLDivElement>(null)
   const vantaEffect = useRef<VantaEffect | null>(null)
   const [vantaLoaded, setVantaLoaded] = useState(false)
-  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
     let isMounted = true
-    let initTimeout: NodeJS.Timeout
+    let loadTimeout: NodeJS.Timeout
 
     const loadVanta = async () => {
       try {
@@ -24,10 +23,12 @@ export default function VantaBackground() {
           return
         }
 
-        // Wait for DOM to be fully ready
-        await new Promise((resolve) => setTimeout(resolve, 500))
+        // Wait longer for page to fully stabilize
+        await new Promise((resolve) => setTimeout(resolve, 1500))
 
-        // Load Three.js first
+        if (!isMounted) return
+
+        // Load Three.js
         const THREE = await import("three")
         ;(window as any).THREE = THREE
 
@@ -36,7 +37,8 @@ export default function VantaBackground() {
         const VANTA_DOTS = VantaModule.default
 
         if (!VANTA_DOTS || typeof VANTA_DOTS !== "function") {
-          throw new Error("VANTA_DOTS is not a function")
+          console.warn("VANTA_DOTS not available, using fallback")
+          return
         }
 
         if (vantaRef.current && !vantaEffect.current && isMounted) {
@@ -54,43 +56,23 @@ export default function VantaBackground() {
               color: 0x3b82f6,
               color2: 0x8b5cf6,
               backgroundColor: 0x0a0a0f,
-              size: 1.0,
-              spacing: 50.0,
+              size: 1.2,
+              spacing: 60.0,
               showLines: true,
             })
 
-            // Configure canvas after creation with a delay to prevent flickering
-            initTimeout = setTimeout(() => {
-              if (isMounted && vantaRef.current) {
-                const canvas = vantaRef.current.querySelector("canvas")
-                if (canvas) {
-                  // Apply styles in one batch to prevent reflows
-                  Object.assign(canvas.style, {
-                    position: "fixed",
-                    top: "0",
-                    left: "0",
-                    width: "100vw",
-                    height: "100vh",
-                    zIndex: "0",
-                    pointerEvents: "none",
-                    display: "block",
-                    visibility: "visible",
-                    opacity: "1",
-                    willChange: "auto", // Prevent unnecessary GPU layers
-                    backfaceVisibility: "hidden", // Optimize rendering
-                    transform: "translateZ(0)", // Force GPU acceleration but stable
-                  })
-                }
+            // Simple canvas configuration
+            loadTimeout = setTimeout(() => {
+              if (isMounted) {
                 setVantaLoaded(true)
-                setIsInitialized(true)
               }
-            }, 1000)
+            }, 500)
           } catch (initError) {
-            console.error("Vanta initialization error:", initError)
+            console.warn("Vanta initialization failed:", initError)
           }
         }
       } catch (error) {
-        console.error("Failed to load Vanta.js or Three.js:", error)
+        console.warn("Failed to load Vanta.js:", error)
       }
     }
 
@@ -98,7 +80,7 @@ export default function VantaBackground() {
 
     return () => {
       isMounted = false
-      if (initTimeout) clearTimeout(initTimeout)
+      if (loadTimeout) clearTimeout(loadTimeout)
       if (vantaEffect.current) {
         try {
           vantaEffect.current.destroy()
@@ -110,35 +92,21 @@ export default function VantaBackground() {
     }
   }, [])
 
-  // Optimized resize handler with debouncing
+  // Simplified resize handler
   useEffect(() => {
     let resizeTimeout: NodeJS.Timeout
 
     const handleResize = () => {
       if (resizeTimeout) clearTimeout(resizeTimeout)
-
       resizeTimeout = setTimeout(() => {
-        if (vantaEffect.current && isInitialized) {
+        if (vantaEffect.current) {
           try {
             vantaEffect.current.resize()
-
-            // Re-apply canvas styles after resize
-            if (vantaRef.current) {
-              const canvas = vantaRef.current.querySelector("canvas")
-              if (canvas) {
-                Object.assign(canvas.style, {
-                  width: "100vw",
-                  height: "100vh",
-                  zIndex: "0",
-                  pointerEvents: "none",
-                })
-              }
-            }
           } catch (error) {
             console.warn("Error resizing Vanta effect:", error)
           }
         }
-      }, 150) // Debounce resize events
+      }, 250)
     }
 
     window.addEventListener("resize", handleResize)
@@ -146,47 +114,37 @@ export default function VantaBackground() {
       window.removeEventListener("resize", handleResize)
       if (resizeTimeout) clearTimeout(resizeTimeout)
     }
-  }, [isInitialized])
+  }, [])
 
   return (
     <>
-      {/* Vanta container */}
+      {/* Vanta container - simplified positioning */}
       <div
         id="vanta-bg"
         ref={vantaRef}
-        className="fixed inset-0"
         style={{
-          zIndex: 0,
-          width: "100vw",
-          height: "100vh",
+          position: "fixed",
           top: 0,
           left: 0,
-          position: "fixed",
-          background: "transparent",
+          width: "100vw",
+          height: "100vh",
+          zIndex: -10,
           pointerEvents: "none",
-          willChange: "auto", // Prevent unnecessary repaints
-          contain: "layout style paint", // Optimize rendering containment
         }}
       />
 
-      {/* Enhanced fallback background - only show if Vanta hasn't loaded */}
+      {/* Simplified fallback background */}
       {!vantaLoaded && (
         <div
-          className="fixed inset-0 fallback-bg"
+          className="fallback-bg"
           style={{
-            zIndex: -1,
-            width: "100vw",
-            height: "100vh",
+            position: "fixed",
             top: 0,
             left: 0,
-            position: "fixed",
-            background: `
-              linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%),
-              radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)
-            `,
-            willChange: "auto",
+            width: "100vw",
+            height: "100vh",
+            zIndex: -20,
+            background: "linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)",
           }}
         />
       )}
