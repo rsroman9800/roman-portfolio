@@ -1,0 +1,373 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: transparent !important;
+    margin: 0;
+    padding: 0;
+    /* Optimize rendering performance */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: transparent !important;
+  margin: 0;
+  padding: 0;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-900/50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* Optimized Vanta container */
+#vanta-bg {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  /* Performance optimizations */
+  will-change: auto !important;
+  contain: layout style paint !important;
+  transform: translateZ(0) !important;
+}
+
+/* Optimized Vanta canvas */
+#vanta-bg canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  /* Anti-flicker optimizations */
+  will-change: auto !important;
+  backface-visibility: hidden !important;
+  transform: translateZ(0) !important;
+  image-rendering: optimizeSpeed !important;
+}
+
+/* Ensure all content is above the Vanta background */
+.relative {
+  z-index: 10;
+}
+
+/* Make sure main content areas are above Vanta */
+section {
+  position: relative;
+  z-index: 10;
+  /* Optimize glass morphism rendering */
+  isolation: isolate;
+}
+
+nav {
+  z-index: 40;
+}
+
+/* Enhanced fallback background with animation */
+.fallback-bg {
+  position: relative;
+  overflow: hidden;
+  will-change: auto;
+}
+
+.fallback-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 75% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 25%),
+    radial-gradient(circle at 25% 75%, rgba(139, 92, 246, 0.05) 0%, transparent 25%);
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+  will-change: opacity, transform;
+}
+
+.fallback-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(4px 4px at 20px 30px, rgba(59, 130, 246, 0.8), transparent),
+    radial-gradient(4px 4px at 40px 70px, rgba(139, 92, 246, 0.8), transparent),
+    radial-gradient(3px 3px at 90px 40px, rgba(59, 130, 246, 0.6), transparent),
+    radial-gradient(3px 3px at 130px 80px, rgba(139, 92, 246, 0.6), transparent),
+    radial-gradient(4px 4px at 160px 30px, rgba(59, 130, 246, 0.8), transparent),
+    radial-gradient(3px 3px at 200px 60px, rgba(139, 92, 246, 0.6), transparent),
+    radial-gradient(4px 4px at 240px 90px, rgba(59, 130, 246, 0.8), transparent),
+    radial-gradient(3px 3px at 280px 20px, rgba(139, 92, 246, 0.6), transparent);
+  background-repeat: repeat;
+  background-size: 300px 200px;
+  animation: floatDots 15s linear infinite;
+  will-change: transform;
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatDots {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-50px) translateX(25px);
+  }
+  50% {
+    transform: translateY(-100px) translateX(0px);
+  }
+  75% {
+    transform: translateY(-150px) translateX(-25px);
+  }
+  100% {
+    transform: translateY(-200px) translateX(0px);
+  }
+}
+
+/* Pre-warmed glass morphism effects - GPU layers created immediately */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Pre-warm GPU layers to prevent first-hover flicker */
+  transform: translateZ(0);
+  will-change: transform, backdrop-filter, background-color;
+  backface-visibility: hidden;
+  /* Force composite layer creation on load */
+  opacity: 0.999;
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Pre-warm GPU layers to prevent first-hover flicker */
+  transform: translateZ(0);
+  will-change: transform, backdrop-filter, background-color;
+  backface-visibility: hidden;
+  /* Force composite layer creation on load */
+  opacity: 0.999;
+}
+
+/* Pre-warm hover states to prevent first-hover flicker */
+.glass:hover,
+.glass-dark:hover {
+  /* These properties are already GPU-accelerated from the start */
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Optimized transitions with pre-warmed properties */
+* {
+  transition: all 0.3s ease;
+  /* Pre-warm common hover properties */
+  will-change: auto;
+}
+
+/* Pre-warmed card hover effects */
+.hover\:shadow-xl {
+  /* Pre-create shadow layer */
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transform: translateZ(0);
+  will-change: box-shadow, transform;
+  backface-visibility: hidden;
+}
+
+.hover\:shadow-xl:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px) translateZ(0);
+}
+
+/* Pre-warmed motion hover effects */
+.motion-hover {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Pre-warm button hover states */
+button,
+.button {
+  transform: translateZ(0);
+  will-change: transform, background-color, box-shadow;
+  backface-visibility: hidden;
+  /* Force layer creation */
+  opacity: 0.999;
+}
+
+/* Pre-warm scale hover effects */
+.hover\:scale-105,
+.hover\:scale-110 {
+  transform: translateZ(0) scale(1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.hover\:scale-105:hover {
+  transform: translateZ(0) scale(1.05);
+}
+
+.hover\:scale-110:hover {
+  transform: translateZ(0) scale(1.1);
+}
+
+/* Glow effects with pre-warmed layers */
+.glow {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  transform: translateZ(0);
+  will-change: box-shadow;
+  backface-visibility: hidden;
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+  transform: translateZ(0);
+  will-change: box-shadow;
+  backface-visibility: hidden;
+}
+
+/* Text glow with pre-warmed layer */
+.text-glow {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  transform: translateZ(0);
+  will-change: text-shadow;
+  backface-visibility: hidden;
+}
+
+/* Pre-warm group hover effects */
+.group {
+  transform: translateZ(0);
+  will-change: auto;
+  backface-visibility: hidden;
+}
+
+.group-hover\:opacity-100 {
+  transform: translateZ(0);
+  will-change: opacity;
+  backface-visibility: hidden;
+}
+
+/* Pre-warm Framer Motion elements */
+[data-framer-component] {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Pre-warm common Tailwind hover utilities */
+.hover\:bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0);
+  transform: translateZ(0);
+  will-change: background-color;
+  backface-visibility: hidden;
+}
+
+.hover\:bg-white\/10:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hover\:border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateZ(0);
+  will-change: border-color;
+  backface-visibility: hidden;
+}
+
+.hover\:border-white\/20:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Pre-warm tech icon hover effects */
+.tech-icon {
+  transform: translateZ(0) scale(1);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  /* Force layer creation */
+  opacity: 0.999;
+}
+
+/* Pre-warm video overlay effects */
+.video-overlay {
+  background-color: rgba(0, 0, 0, 0);
+  transform: translateZ(0);
+  will-change: background-color, opacity;
+  backface-visibility: hidden;
+}
+
+.video-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
