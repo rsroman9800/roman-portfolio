@@ -173,7 +173,8 @@ export default function Portfolio() {
       { name: "Oracle", icon: "🔴", color: "text-red-500" },
       { name: "Supabase", icon: "⚡", color: "text-green-400" },
       { name: "Microsoft SQL Server", icon: "🏢", color: "text-blue-600" },
-      { name: "RESTful APIs", icon: "🔗", color: "text-orange-400" }
+      { name: "RESTful APIs", icon: "🔗", color: "text-orange-400" },
+      { name: "Google Maps API", icon: "🗺️", color: "text-green-400" },
     ],
     tools: [
       { name: "GitHub", icon: "🐙", color: "text-white" },
@@ -182,7 +183,6 @@ export default function Portfolio() {
       { name: "Tableau", icon: "📈", color: "text-orange-400" },
       { name: "Linux", icon: "🐧", color: "text-yellow-500" },
       { name: "VS Code", icon: "💻", color: "text-blue-500" },
-      { name: "Google Maps API", icon: "🗺️", color: "text-green-400" },
       { name: "Cloud Integration", icon: "☁️", color: "text-cyan-400" },
     ],
   }
