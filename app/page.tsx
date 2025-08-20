@@ -174,7 +174,6 @@ export default function Portfolio() {
       { name: "Supabase", icon: "⚡", color: "text-green-400" },
       { name: "Microsoft SQL Server", icon: "🏢", color: "text-blue-600" },
       { name: "RESTful APIs", icon: "🔗", color: "text-orange-400" },
-      { name: "Google Maps API", icon: "🗺️", color: "text-green-400" },
     ],
     tools: [
       { name: "GitHub", icon: "🐙", color: "text-white" },
