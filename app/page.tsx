@@ -181,14 +181,21 @@ export default function Portfolio() {
       { name: "Tableau", icon: "📈", color: "text-orange-400" },
       { name: "Linux", icon: "🐧", color: "text-yellow-500" },
       { name: "VS Code", icon: "💻", color: "text-blue-500" },
+      { name: "Google Maps API", icon: "🗺️", color: "text-green-400" },
     ],
+      enterprise: [
+    { name: "RESTful APIs", icon: "🔗", color: "text-orange-400" },
+    { name: "Cloud Integration", icon: "☁️", color: "text-cyan-400" },
+    { name: "Data Processing", icon: "⚙️", color: "text-yellow-400" },
+    { name: "Performance Optimization", icon: "⚡", color: "text-green-500" },
+  ],
   }
 
   const projects = [
     {
       title: "Destination History",
       description:
-        "Volunteer developer & PM for a travel app highlighting Alberta's hidden gems. Built with modern full-stack technologies and AI-driven trip planning. RESTful API integrations showcase backend strengths.",
+        "Led cross-functional team building travel app platform for Alberta tourism. Integrated Google Maps API for coordinate-based asset tracking, implemented location data processing, and built responsive web interfaces for remote collaboration.",
       tech: ["React", "Node.js", "MongoDB", "AI Integration"],
       icon: <Palette className="w-6 h-6" />,
       github: "#",
@@ -240,11 +247,12 @@ export default function Portfolio() {
   ]
 
   const skillProgression = [
-    { skill: "Project Management", level: 90, startDate: "Jan 2025", duration: "7 months" },
+    { skill: "Project Management", level: 90, startDate: "Jan 2025", duration: "8 months" },
     { skill: "OOP (Python, C#, JS)", level: 85, startDate: "Jan 2024", duration: "1.5+ years" },
-    { skill: "AI/ML", level: 75, startDate: "Dec 2024", duration: "8 months" },
+    { skill: "AI/ML", level: 75, startDate: "Dec 2024", duration: "9 months" },
     { skill: "Databases", level: 85, startDate: "Oct 2023", duration: "1.5+ years" },
-    { skill: "Mobile Dev", level: 80, startDate: "Sep 2024", duration: "10 months" },
+    { skill: "Mobile Dev", level: 80, startDate: "Sep 2024", duration: "11 months" },
+    { skill: "API Integration", level: 85, startDate: "Dec 2024", duration: "9 months"},
   ]
 
   const scrollToSection = (sectionId: string) => {
@@ -375,7 +383,7 @@ export default function Portfolio() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-xl md:text-2xl lg:text-3xl mb-10 text-gray-400 max-w-4xl mx-auto leading-relaxed"
               >
-                Passionate about backend systems, data architecture, and building purposeful tools.
+                Full-stack developer passionate about data visualization, enterprise systems, and building scalable web applications for complex industrial challenges.
               </motion.p>
 
               <motion.p
@@ -435,7 +443,7 @@ export default function Portfolio() {
                     </p>
                     <p className="mt-6 text-lg">$ ls skills/</p>
                     <p className="text-blue-400 text-lg">
-                      backend-development/ database-architecture/ problem-solving/ project-management/
+                      fullstack-development/ database-architecture/ api-integration/ project-management/
                     </p>
                   </div>
                 </CardContent>
