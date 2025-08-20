@@ -182,7 +182,7 @@ export default function Portfolio() {
       { name: "Tableau", icon: "📈", color: "text-orange-400" },
       { name: "Linux", icon: "🐧", color: "text-yellow-500" },
       { name: "VS Code", icon: "💻", color: "text-blue-500" },
-      { name: "Cloud Integration", icon: "☁️", color: "text-cyan-400" },
+      { name: "GCP", icon: "☁️", color: "text-cyan-400" },
     ],
   }
 
